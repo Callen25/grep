@@ -4,13 +4,12 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define MAX_LENGTH 257
 
-#define MAX_LENGTH 258
-
-
+/* see if character matches a meta escape character */
 bool match_slash(const char cur, const char token)
 {
-    switch (cur)
+    switch (token)
     {
     case 'd':
     {
@@ -39,85 +38,66 @@ bool match_slash(const char cur, const char token)
     }
 }
 
-void match_star(const char *line, const char *reg_pattern,
-                int line_idx, int pattern_idx)
+/* Used for + and * to match as many chars as possible */
+int match_star(const char *line, int line_idx, const char token, bool is_slash)
 {
-    bool is_slash = false;
-    bool is_match = false;
-    if (pattern_idx > 0 && reg_pattern[pattern_idx - 1] == '\\')
-    {
-        is_slash = true;
-    }
-    if (is_slash)
-    {
-        is_match = match_slash(line[line_idx], reg_pattern[pattern_idx - 1]);
-    }
-    else
-    {
-        is_match = reg_pattern[pattern_idx] == '.' ||
-                   reg_pattern[pattern_idx] == line[line_idx];
-    }
-    while (is_match && line_idx < strlen(line) - 1)
+    while ((((token == '.' || token == line[line_idx]) && !is_slash) ||
+            match_slash(line[line_idx], token)) &&
+           line_idx < strlen(line) - 1)
     {
         line_idx++;
-        if (is_slash)
-        {
-            is_match = match_slash(line[line_idx], reg_pattern[pattern_idx - 1]);
-        }
-        else
-        {
-            is_match = reg_pattern[pattern_idx] == '.' ||
-                       reg_pattern[pattern_idx] == line[line_idx];
-        }
     }
+    return line_idx;
 }
 
-bool match_char(const char *line, const char *reg_pattern, int line_idx,
+/* Determine if current char in line matches with current regex char */
+bool match_char(const char *line, const char *reg_pattern, int *line_idx,
                 int pattern_idx)
 {
-    char cur = line[line_idx];
+    char cur = line[*line_idx];
     char token = reg_pattern[pattern_idx];
-    if (line_idx > 0)
-    {
-        if (line[line_idx - 1] == '\\')
-        {
-            return match_slash(cur, token);
-        }
-    }
+    bool is_slash = pattern_idx > 0 && reg_pattern[pattern_idx - 1] == '\\';
+    if (token == '\\')
+        return true;
     if (reg_pattern[pattern_idx + 1] == '*')
     {
-        match_star(line, reg_pattern, line_idx, pattern_idx);
+        *line_idx = match_star(line, *line_idx, token, is_slash);
         return true;
     }
     if (reg_pattern[pattern_idx + 1] == '+')
     {
-        if (token == cur || match_slash(cur, token))
+        if (((token == cur || token == '.') && !is_slash) ||
+             match_slash(cur, token))
         {
-            match_star(line, reg_pattern, line_idx, pattern_idx);
+            *line_idx = match_star(line, *line_idx, token, is_slash);
             return true;
         }
         return false;
     }
+    if (is_slash)
+    {
+        *line_idx = *line_idx + 1;
+        bool res = match_slash(cur, token);
+        return res;
+    }
     if (token == '*' || token == '+')
         return true;
     if (token == '.')
+    {
+        *line_idx = *line_idx + 1;
         return true;
+    }
     if (token == '?')
         return true;
-    return token == cur || reg_pattern[pattern_idx + 1] == '?';
+    if (token == cur || reg_pattern[pattern_idx + 1] == '?')
+    {
+        *line_idx = *line_idx + 1;
+        return true;
+    }
+    return false;
 }
 
-/*
-Recursively determine if this line matches the given regex pattern.
-If it does, return 0.
-If not, return 1.
-line: line being read for a match
-reg_pattern: regex pattern 
-line_idx: index of the line we are currently looking at
-starting_pos: position of the line where this match started (if a char is
-not a match, we reset from the idx after this point)
-pattern_idx: index in regex pattern we are currently looking at
-*/
+/* Recursively match the pattern */
 int match_pattern(const char *line, const char *reg_pattern,
                   int line_idx, int pattern_idx, int starting_pos)
 {
@@ -127,14 +107,14 @@ int match_pattern(const char *line, const char *reg_pattern,
         return starting_pos;
     }
     // The end of the line was reached without finding a match
-    if (line_idx == strlen(line) - 1 && reg_pattern[pattern_idx] != '?')
+    if (line_idx == strlen(line) && reg_pattern[pattern_idx] != '?')
     {
         return -1;
     }
     // If current char matches, recursively check for next match
-    if (match_char(line, reg_pattern, line_idx, pattern_idx))
+    if (match_char(line, reg_pattern, &line_idx, pattern_idx))
     {
-        return match_pattern(line, reg_pattern, line_idx + 1, pattern_idx + 1,
+        return match_pattern(line, reg_pattern, line_idx, pattern_idx + 1,
                              starting_pos);
     }
     else
@@ -144,6 +124,7 @@ int match_pattern(const char *line, const char *reg_pattern,
     }
 }
 
+/* Read regex into string */
 void read_regex(const char *re_file, char *reg_pattern)
 {
     FILE *regex_file = fopen(re_file, "r");
@@ -156,6 +137,7 @@ void read_regex(const char *re_file, char *reg_pattern)
     fclose(regex_file);
 }
 
+/* Read the file while matching each line to regex pattern */
 void parse_file(const char *in_file, char *reg_pattern)
 {
     FILE *input_file = fopen(in_file, "r");
@@ -169,6 +151,7 @@ void parse_file(const char *in_file, char *reg_pattern)
     {
         if (match_pattern(line, reg_pattern, 0, 0, 0) != -1)
         {
+            // Append newline char if the line does not have one
             if (line[strlen(line) - 1] == '\n')
             {
                 printf("%s", line);
@@ -182,6 +165,7 @@ void parse_file(const char *in_file, char *reg_pattern)
     fclose(input_file);
 }
 
+/* Initailize regex pattern and then match */
 void perform_grep(char *re_file, char *in_file)
 {
     char reg_pattern[MAX_LENGTH];
@@ -191,6 +175,7 @@ void perform_grep(char *re_file, char *in_file)
 
 int main(int argc, char **argv)
 {
+    setvbuf( stdout, NULL, _IONBF, 0 );
     if (argc != 3)
     {
         fprintf(stderr, "ERROR: Invalid arguments\n"
