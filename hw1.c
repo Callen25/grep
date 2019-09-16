@@ -29,7 +29,7 @@ bool match_slash(const char cur, const char token)
     }
     case 's':
     {
-        return token == ' ' || token == '\t';
+        return cur == ' ' || cur == '\t';
     }
     default:
     {
@@ -38,16 +38,31 @@ bool match_slash(const char cur, const char token)
     }
 }
 
-/* Used for + and * to match as many chars as possible */
-int match_star(const char *line, int line_idx, const char token, bool is_slash)
+bool matches_stop(const char *reg_pattern, int pattern_idx, const char cur)
 {
+    if (reg_pattern[pattern_idx] == '\\')
+        return match_slash(cur, reg_pattern[pattern_idx + 1]);
+    else
+        return cur == reg_pattern[pattern_idx] ||
+               reg_pattern[pattern_idx] == '.';
+}
+
+/* Used for + and * to match as many chars as possible */
+int match_star(const char *line, const char *reg_pattern, int line_idx,
+               int pattern_idx, bool is_slash)
+{
+    // Highest index of char that matches next in regex pattern
+    int stop_index = -1;
+    char token = reg_pattern[pattern_idx];
     while ((((token == '.' || token == line[line_idx]) && !is_slash) ||
             match_slash(line[line_idx], token)) &&
            line_idx < strlen(line) - 1)
     {
+        if (matches_stop(reg_pattern, pattern_idx + 2, line[line_idx]))
+            stop_index = line_idx;
         line_idx++;
     }
-    return line_idx;
+    return stop_index != -1 ? stop_index : line_idx;
 }
 
 /* Determine if current char in line matches with current regex char */
@@ -61,18 +76,19 @@ bool match_char(const char *line, const char *reg_pattern, int *line_idx,
         return true;
     if (reg_pattern[pattern_idx + 1] == '*')
     {
-        *line_idx = match_star(line, *line_idx, token, is_slash);
+        *line_idx = match_star(line, reg_pattern, *line_idx, pattern_idx,
+                               is_slash);
         return true;
     }
     if (reg_pattern[pattern_idx + 1] == '+')
     {
-        if (((token == cur || token == '.') && !is_slash) ||
-             match_slash(cur, token))
-        {
-            *line_idx = match_star(line, *line_idx, token, is_slash);
-            return true;
-        }
-        return false;
+        int new_index = match_star(line, reg_pattern, *line_idx, pattern_idx,
+                                   is_slash);
+        // If index has not increased, then at least one match was not found
+        if (new_index == *line_idx)
+            return false;
+        *line_idx = new_index;
+        return true;
     }
     if (is_slash)
     {
@@ -80,16 +96,11 @@ bool match_char(const char *line, const char *reg_pattern, int *line_idx,
         bool res = match_slash(cur, token);
         return res;
     }
-    if (token == '*' || token == '+')
+    if (reg_pattern[pattern_idx + 1] == '?')
         return true;
-    if (token == '.')
-    {
-        *line_idx = *line_idx + 1;
+    if (token == '*' || token == '+' || token == '?')
         return true;
-    }
-    if (token == '?')
-        return true;
-    if (token == cur || reg_pattern[pattern_idx + 1] == '?')
+    if (token == cur || token == '.')
     {
         *line_idx = *line_idx + 1;
         return true;
@@ -102,7 +113,7 @@ int match_pattern(const char *line, const char *reg_pattern,
                   int line_idx, int pattern_idx, int starting_pos)
 {
     // The end of the pattern was reached, so there was a successful match
-    if (reg_pattern[pattern_idx] == '\0')
+    if (reg_pattern[pattern_idx] == '\0' || reg_pattern[pattern_idx] == '\n')
     {
         return starting_pos;
     }
@@ -133,7 +144,7 @@ void read_regex(const char *re_file, char *reg_pattern)
         fprintf(stderr, "ERROR: regex file <%s> does not exist\n", re_file);
         exit(1);
     }
-    fgets(reg_pattern, sizeof(reg_pattern), regex_file);
+    fgets(reg_pattern, MAX_LENGTH, regex_file);
     fclose(regex_file);
 }
 
@@ -147,7 +158,7 @@ void parse_file(const char *in_file, char *reg_pattern)
         exit(1);
     }
     char line[MAX_LENGTH];
-    while (fgets(line, sizeof(line), input_file))
+    while (fgets(line, MAX_LENGTH, input_file))
     {
         if (match_pattern(line, reg_pattern, 0, 0, 0) != -1)
         {
@@ -175,7 +186,7 @@ void perform_grep(char *re_file, char *in_file)
 
 int main(int argc, char **argv)
 {
-    setvbuf( stdout, NULL, _IONBF, 0 );
+    setvbuf(stdout, NULL, _IONBF, 0);
     if (argc != 3)
     {
         fprintf(stderr, "ERROR: Invalid arguments\n"
