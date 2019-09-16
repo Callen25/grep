@@ -43,8 +43,19 @@ bool matches_stop(const char *reg_pattern, int pattern_idx, const char cur)
     if (reg_pattern[pattern_idx] == '\\')
         return match_slash(cur, reg_pattern[pattern_idx + 1]);
     else
+    {
+        // If stop char is optional, look for next stop char
+        if (reg_pattern[pattern_idx + 1] == '*' ||
+            reg_pattern[pattern_idx + 1] == '?')
+        {
+            if (reg_pattern[pattern_idx + 2] == '\0' ||
+                reg_pattern[pattern_idx + 2] == '\n')
+                return true;
+            return matches_stop(reg_pattern, pattern_idx + 2, cur);
+        }
         return cur == reg_pattern[pattern_idx] ||
                reg_pattern[pattern_idx] == '.';
+    }
 }
 
 /* Used for + and * to match as many chars as possible */
@@ -56,8 +67,9 @@ int match_star(const char *line, const char *reg_pattern, int line_idx,
     char token = reg_pattern[pattern_idx];
     while ((((token == '.' || token == line[line_idx]) && !is_slash) ||
             match_slash(line[line_idx], token)) &&
-           line_idx < strlen(line) - 1)
+           line[line_idx] != '\n' && line[line_idx] != '\0')
     {
+        // If this matches char after * or + save index
         if (matches_stop(reg_pattern, pattern_idx + 2, line[line_idx]))
             stop_index = line_idx;
         line_idx++;
@@ -118,7 +130,8 @@ int match_pattern(const char *line, const char *reg_pattern,
         return starting_pos;
     }
     // The end of the line was reached without finding a match
-    if (line_idx == strlen(line) && reg_pattern[pattern_idx] != '?')
+    if (line[line_idx] == '\0' && reg_pattern[pattern_idx] != '?' &&
+        reg_pattern[pattern_idx] != '*' && reg_pattern[pattern_idx] != '+')
     {
         return -1;
     }
