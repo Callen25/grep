@@ -38,6 +38,7 @@ bool match_slash(const char cur, const char token)
     }
 }
 
+/*Determines if next character in match_star matches next char in reg_pattern*/
 bool matches_stop(const char *reg_pattern, int pattern_idx, const char cur)
 {
     if (reg_pattern[pattern_idx] == '\\')
@@ -97,6 +98,7 @@ bool match_char(const char *line, const char *reg_pattern, int *line_idx,
         int new_index = match_star(line, reg_pattern, *line_idx, pattern_idx,
                                    is_slash);
         // If index has not increased, then at least one match was not found
+        //printf("line index: %d\n new index: %d", *line_idx, new_index);
         if (new_index == *line_idx)
             return false;
         *line_idx = new_index;
