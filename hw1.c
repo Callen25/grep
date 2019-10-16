@@ -80,9 +80,8 @@ bool match_reg(const struct reg_char reg, const char c)
     }
 }
 
-reg_char *compile_reg(const char *reg_pattern)
+void compile_reg(char* reg_pattern, reg_char* pattern)
 {
-    reg_char *pattern = malloc(MAX_LENGTH);
     int i = 0, j = 0;
 
     while (reg_pattern[i] != '\n' && reg_pattern[i] != '\0')
@@ -178,7 +177,7 @@ reg_char *compile_reg(const char *reg_pattern)
                 i++;
                 k++;
             }
-            pattern[j].group = compile_reg(reg_group);
+            compile_reg(reg_group, pattern[j].group);
         }
         break;
         default:
@@ -191,15 +190,15 @@ reg_char *compile_reg(const char *reg_pattern)
         i++;
         j++;
     }
+    pattern[j].is_meta = true;
     pattern[j].meta = END;
-    return pattern;
 }
 
 bool next_match(const char cur, const reg_char *pattern, int pattern_idx)
 {
     reg_char cur_reg = pattern[pattern_idx];
     if (cur_reg.meta == END)
-        return false;
+        return true;
     else if (match_reg(cur_reg, cur))
         return true;
     else if (pattern[pattern_idx + 1].meta == STAR ||
@@ -254,16 +253,17 @@ int match_p(const char *line, const reg_char *pattern, int line_idx,
         }
         else
         {
-            if (match_reg(cur, line[line_idx]))
+            if (match_reg(cur, line[line_idx])){
                 return match_p(line, pattern, line_idx + 1, pattern_idx + 1,
                                starting_pos);
+            }
             return match_p(line, pattern, starting_pos + 1, 0, starting_pos + 1);
         }
     }
 }
 
 /* Read regex into string */
-reg_char *read_regex(const char *re_file)
+void read_regex(const char* re_file, reg_char* pattern)
 {
     FILE *regex_file = fopen(re_file, "r");
     if (regex_file == NULL)
@@ -274,12 +274,15 @@ reg_char *read_regex(const char *re_file)
     char reg_pattern[MAX_LENGTH];
     fgets(reg_pattern, MAX_LENGTH, regex_file);
     fclose(regex_file);
-    return compile_reg(reg_pattern);
+    compile_reg(reg_pattern, pattern);
 }
 
 /* Read the file while matching each line to regex pattern */
-void parse_file(const char *in_file, reg_char *pattern)
+void parse_file(const char *in_file, const char *re_file)
 {
+    reg_char pattern[MAX_LENGTH];
+    read_regex(re_file, pattern);
+
     FILE *input_file = fopen(in_file, "r");
     if (input_file == NULL)
     {
@@ -303,7 +306,6 @@ void parse_file(const char *in_file, reg_char *pattern)
         }
     }
     fclose(input_file);
-    free(pattern);
 }
 
 int main(int argc, char **argv)
@@ -315,5 +317,5 @@ int main(int argc, char **argv)
                         "USAGE: a.out <regex-file> <input-file>\n");
         return 1;
     }
-    parse_file(argv[2], read_regex(argv[1]));
+    parse_file(argv[2], argv[1]);
 }
