@@ -141,6 +141,7 @@ reg_char *compile_reg(const char *reg_pattern)
                 pattern[j].is_meta = true;
                 pattern[j].meta = NON_LETTER;
             }
+            break;
             case 's':
             {
                 pattern[j].is_meta = true;
