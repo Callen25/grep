@@ -1,0 +1,195 @@
+Test of hw1.c run on 10/15/2019-14:18 with option: dev
+
+Compiling program with: gcc -Wall -Werror -D DEBUG_MODE hw1.c
+
+Testing 0 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 1 argument: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 3 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Invalid Argument Tests Successful
+
+Testing correct args but bad files: expect ERROR
+ERROR: regex file <one-arg> does not exist
+
+Invalid Argument Tests Successful
+
+--------------------------------------------------------------------------------
+
+Running Test: regex01-input01 (expected output: hw1-regex01-output01.txt)
+regex: printfExpected Output:
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Your Output:
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex01-output01.txt are identical
+
+           ***************
+           * Test Passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex02-input01 (expected output: hw1-regex02-output01.txt)
+regex: colou?rExpected Output:
+  printf( "Green is my favorite color\n" );
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+0a1
+>   printf( "Green is my favorite color\n" );
+
+--------------------------------------------------------------------------------
+
+Running Test: regex02-input02 (expected output: hw1-regex02-output02.txt)
+regex: colou?rExpected Output:
+various-colored birds eggs were suspended above it; a great ostrich egg was hung from the centre of the room, and a corner cupboard, knowingly left open, displayed immense treasures of old silver and 
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+0a1
+> various-colored birds eggs were suspended above it; a great ostrich egg was hung from the centre of the room, and a corner cupboard, knowingly left open, displayed immense treasures of old silver and 
+
+--------------------------------------------------------------------------------
+
+Running Test: regex03-input01 (expected output: hw1-regex03-output01.txt)
+regex: \w+
+Expected Output:
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main()
+  int x = 300-1200;
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+  return EXIT_SUCCESS;
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+0a1,10
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <unistd.h>
+> int main()
+>   int x = 300-1200;
+>   printf( "I like Cocoa Puffs\n" );
+>   printf( "and also Trix %d\n", x );
+>   printf( "Green is my favorite color\n" );
+>   printf( "My number is 276-2819, but don't call me\n" );
+>   return EXIT_SUCCESS;
+
+--------------------------------------------------------------------------------
+
+Running Test: regex04-input01 (expected output: hw1-regex04-output01.txt)
+regex: <\w+>
+Expected Output:
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex04-output01.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex04-input03 (expected output: hw1-regex04-output03.txt)
+regex: <\w+>
+Expected Output:
+<head>
+  <title>David Goldschmidt | Science at Rensselaer</title>
+  <style>
+<style>
+<style>
+<style>
+<style>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+<script>jQuery.extend(Drupal.settings, 
+src="/sites/all/themes/rpi_zen_boot_14/Assets_2014/images/RPIlogo.png" alt="Rensselaer"></a></div></div><script>
+<h2>David Goldschmidt <small><p>Executive Officer</p>
+<p>David Goldschmidt has served as the Executive Officer for the Computer Science Department at Rensselaer Polytechnic Institute since January 2012.  In this role, he teaches primarily systems-based courses at all levels for the department, in 
+<p>Administratively in the department, David is responsible for overseeing undergraduate advising, handling course scheduling, managing curriculum changes, and serving as the department's degree clearance officer.  He is also very good at Scrabble 
+                              <li>
+                                  <p>B.S., M.S., and Ph.D. in Computer Science, Rensselaer Polytechnic Institute</p>
+                            <ul>
+<p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+<p>(518) 276 8412</p>
+        <address>
+    <span>Policies:</span>
+</nav>          <p>
+  <script>
+  <script>
+  <script>
+  <script>
+<script>
+  <script>
+  <script>
+<script>
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+0a1,29
+> <head>
+>   <title>David Goldschmidt | Science at Rensselaer</title>
+>   <style>
+> <style>
+> <style>
+> <style>
+> <style>
+> <script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+> <script>jQuery.extend(Drupal.settings, 
+> src="/sites/all/themes/rpi_zen_boot_14/Assets_2014/images/RPIlogo.png" alt="Rensselaer"></a></div></div><script>
+> <h2>David Goldschmidt <small><p>Executive Officer</p>
+> <p>David Goldschmidt has served as the Executive Officer for the Computer Science Department at Rensselaer Polytechnic Institute since January 2012.  In this role, he teaches primarily systems-based courses at all levels for the department, in 
+> <p>Administratively in the department, David is responsible for overseeing undergraduate advising, handling course scheduling, managing curriculum changes, and serving as the department's degree clearance officer.  He is also very good at Scrabble 
+>                               <li>
+>                                   <p>B.S., M.S., and Ph.D. in Computer Science, Rensselaer Polytechnic Institute</p>
+>                             <ul>
+> <p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+> <p>(518) 276 8412</p>
+>         <address>
+>     <span>Policies:</span>
+> </nav>          <p>
+>   <script>
+>   <script>
+>   <script>
+>   <script>
+> <script>
+>   <script>
+>   <script>
+> <script>
+
+--------------------------------------------------------------------------------
+
+Running Test: regex05-input03 (expected output: hw1-regex05-output03.txt)
+regex: \w+\d*@rpi.edu
+ERROR: Program returned non-zero value

@@ -226,7 +226,6 @@ int match_p(const char *line, const reg_char *pattern, int line_idx,
                 if (!match_reg(cur, line[line_idx]))
                     return match_p(line, pattern, starting_pos + 1, 0,
                                    starting_pos + 1);
-                line_idx++;
             }
             while (match_reg(pattern[pattern_idx], line[line_idx]) &&
                    line[line_idx] != '\0' && line[line_idx] != '\n')
@@ -303,6 +302,7 @@ void parse_file(const char *in_file, reg_char *pattern)
         }
     }
     fclose(input_file);
+    free(pattern);
 }
 
 int main(int argc, char **argv)

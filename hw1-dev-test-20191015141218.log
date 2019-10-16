@@ -1,0 +1,27 @@
+Test of hw1.c run on 10/15/2019-14:12 with option: dev
+
+Compiling program with: gcc -Wall -Werror -D DEBUG_MODE hw1.c
+
+Testing 0 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 1 argument: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 3 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Invalid Argument Tests Successful
+
+Testing correct args but bad files: expect ERROR
+ERROR: regex file <one-arg> does not exist
+
+Invalid Argument Tests Successful
+
+--------------------------------------------------------------------------------
+
+Running Test: regex01-input01 (expected output: hw1-regex01-output01.txt)
+regex: printfERROR: Program returned non-zero value

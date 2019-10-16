@@ -1,0 +1,21 @@
+
+regex01.txt: printf
+regex02.txt: colou?r
+regex03.txt: \w+
+regex04.txt: <\w+>
+regex05.txt: \w+\d*@rpi.edu
+regex06.txt: \d\d\d-\d\d\d\d
+regex07.txt: if\s*(.+)
+regex08.txt: class\s*=\s*".+"
+regex09.txt: aqu\w+
+regex10.txt: f...x
+
+hw1-input01.txt: The sample input file shown in the Homework 1 specifications
+
+hw1-input02.txt: The Legend of Sleepy Hollow (from gutenberg.org)
+
+hw1-input03.txt: HTML source of https://science.rpi.edu/computer-science/faculty/david-goldschmidt
+
+hw1-input04.txt: All valid Scrabble words that have a 'q' in them
+
+Note that hw1-input02.txt and hw1-input03.txt were modified to make sure no lines were greater than 256 characters long.

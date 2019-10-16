@@ -1,0 +1,4 @@
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );

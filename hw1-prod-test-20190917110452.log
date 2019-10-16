@@ -1,0 +1,686 @@
+Test of hw1.c run on 09/17/2019-11:04 with option: prod
+
+Compiling program with: gcc -Wall -Werror  hw1.c
+
+Testing 0 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 1 argument: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Testing 3 arguments: expect ERROR
+ERROR: Invalid arguments
+USAGE: a.out <regex-file> <input-file>
+
+Invalid Argument Tests Successful
+
+Testing correct args but bad files: expect ERROR
+ERROR: regex file <one-arg> does not exist
+
+Invalid Argument Tests Successful
+
+--------------------------------------------------------------------------------
+
+Running Test: regex01-input01 (expected output: hw1-regex01-output01.txt)
+regex: printfExpected Output:
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Your Output:
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex01-output01.txt are identical
+
+           ***************
+           * Test Passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex02-input01 (expected output: hw1-regex02-output01.txt)
+regex: colou?rExpected Output:
+  printf( "Green is my favorite color\n" );
+
+Your Output:
+  printf( "Green is my favorite color\n" );
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex02-output01.txt are identical
+
+           ***************
+           * Test Passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex02-input02 (expected output: hw1-regex02-output02.txt)
+regex: colou?rExpected Output:
+various-colored birds eggs were suspended above it; a great ostrich egg was hung from the centre of the room, and a corner cupboard, knowingly left open, displayed immense treasures of old silver and 
+
+Your Output:
+various-colored birds eggs were suspended above it; a great ostrich egg was hung from the centre of the room, and a corner cupboard, knowingly left open, displayed immense treasures of old silver and 
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex02-output02.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex03-input01 (expected output: hw1-regex03-output01.txt)
+regex: \w+
+Expected Output:
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main()
+  int x = 300-1200;
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+  return EXIT_SUCCESS;
+
+Your Output:
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main()
+  int x = 300-1200;
+  printf( "I like Cocoa Puffs\n" );
+  printf( "and also Trix %d\n", x );
+  printf( "Green is my favorite color\n" );
+  printf( "My number is 276-2819, but don't call me\n" );
+  return EXIT_SUCCESS;
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex03-output01.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex04-input01 (expected output: hw1-regex04-output01.txt)
+regex: <\w+>
+Expected Output:
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex04-output01.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex04-input03 (expected output: hw1-regex04-output03.txt)
+regex: <\w+>
+Expected Output:
+<head>
+  <title>David Goldschmidt | Science at Rensselaer</title>
+  <style>
+<style>
+<style>
+<style>
+<style>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+<script>jQuery.extend(Drupal.settings, 
+src="/sites/all/themes/rpi_zen_boot_14/Assets_2014/images/RPIlogo.png" alt="Rensselaer"></a></div></div><script>
+<h2>David Goldschmidt <small><p>Executive Officer</p>
+<p>David Goldschmidt has served as the Executive Officer for the Computer Science Department at Rensselaer Polytechnic Institute since January 2012.  In this role, he teaches primarily systems-based courses at all levels for the department, in 
+<p>Administratively in the department, David is responsible for overseeing undergraduate advising, handling course scheduling, managing curriculum changes, and serving as the department's degree clearance officer.  He is also very good at Scrabble 
+                              <li>
+                                  <p>B.S., M.S., and Ph.D. in Computer Science, Rensselaer Polytechnic Institute</p>
+                            <ul>
+<p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+<p>(518) 276 8412</p>
+        <address>
+    <span>Policies:</span>
+</nav>          <p>
+  <script>
+  <script>
+  <script>
+  <script>
+<script>
+  <script>
+  <script>
+<script>
+
+Your Output:
+<head>
+  <title>David Goldschmidt | Science at Rensselaer</title>
+  <style>
+<style>
+<style>
+<style>
+<style>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+<script>jQuery.extend(Drupal.settings, 
+src="/sites/all/themes/rpi_zen_boot_14/Assets_2014/images/RPIlogo.png" alt="Rensselaer"></a></div></div><script>
+<h2>David Goldschmidt <small><p>Executive Officer</p>
+<p>David Goldschmidt has served as the Executive Officer for the Computer Science Department at Rensselaer Polytechnic Institute since January 2012.  In this role, he teaches primarily systems-based courses at all levels for the department, in 
+<p>Administratively in the department, David is responsible for overseeing undergraduate advising, handling course scheduling, managing curriculum changes, and serving as the department's degree clearance officer.  He is also very good at Scrabble 
+                              <li>
+                                  <p>B.S., M.S., and Ph.D. in Computer Science, Rensselaer Polytechnic Institute</p>
+                            <ul>
+<p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+<p>(518) 276 8412</p>
+        <address>
+    <span>Policies:</span>
+</nav>          <p>
+  <script>
+  <script>
+  <script>
+  <script>
+<script>
+  <script>
+  <script>
+<script>
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex04-output03.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex05-input03 (expected output: hw1-regex05-output03.txt)
+regex: \w+\d*@rpi.edu
+Expected Output:
+<a href="mailto:goldsd3@rpi.edu">goldsd3@rpi.edu</a>
+
+Your Output:
+<a href="mailto:goldsd3@rpi.edu">goldsd3@rpi.edu</a>
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex05-output03.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex06-input01 (expected output: hw1-regex06-output01.txt)
+regex: \d\d\d-\d\d\d\d
+Expected Output:
+  int x = 300-1200;
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Your Output:
+  int x = 300-1200;
+  printf( "My number is 276-2819, but don't call me\n" );
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex06-output01.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex06-input03 (expected output: hw1-regex06-output03.txt)
+regex: \d\d\d-\d\d\d\d
+Expected Output:
+                               <li class="list-unstyled"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;518-276-2819 </li>
+<p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+          <div class="tel"><a href="tel:15182766000">(518) 276-6000</a></div>
+
+Your Output:
+                               <li class="list-unstyled"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;518-276-2819 </li>
+<p><p>207 Lally Hall<br />110 8th Street<br />Troy, NY 12180-3590</p>
+          <div class="tel"><a href="tel:15182766000">(518) 276-6000</a></div>
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex06-output03.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex07-input01 (expected output: hw1-regex07-output01.txt)
+regex: if\s*(.+)
+Expected Output:
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex07-output01.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex07-input03 (expected output: hw1-regex07-output03.txt)
+regex: if\s*(.+)
+Expected Output:
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--><html  lang="en" dir="ltr"><!--<![endif]-->
+       if( currentNavHeight4 < 5 ) {
+        if( currentNavHeight2 < 5 ) {
+    // if(b != true) {
+      if ($(this).parent().parent().hasClass("rollup")){
+    if ($(window).scrollTop() > num) {
+
+Your Output:
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--><html  lang="en" dir="ltr"><!--<![endif]-->
+       if( currentNavHeight4 < 5 ) {
+        if( currentNavHeight2 < 5 ) {
+    // if(b != true) {
+      if ($(this).parent().parent().hasClass("rollup")){
+    if ($(window).scrollTop() > num) {
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex07-output03.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex08-input03 (expected output: hw1-regex08-output03.txt)
+regex: class\s*=\s*".+"
+Expected Output:
+<!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7"  lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"  lang="en" dir="ltr"><![endif]-->
+<body id="skrollr-body" class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-148377 node-type-rpi-cmt-faculty-profile section-computer-science" >
+<div id="page" class="container">
+  <header class="header" id="header" role="banner">
+      <div class="header__region region region-header">
+    <div id="block-block-40" class="block block-block sciBackImage first odd">
+  <div class="col-md-12" id="logobanner"><div id="mobileMenuContainer"><a class="mobileMenu" href="#mobileMenu">☰</a></div><div id="rensselaerLogo"><a href="https://www.rpi.edu/"><img 
+<div id="block-views-department-banner-image-block" class="block block-views even">
+  <div class="view view-department-banner-image view-id-department_banner_image view-display-id-block view-dom-id-6ae40472d585f5ef166b0d14ffc484c0">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-field-lead-photo">        <div class="field-content"><div class="bannerImage"><img src="https://science.rpi.edu/sites/default/files/speaker_final_0.jpg" width="1900" height="533" alt="" /></div></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><div class="bannerArea">
+<div class="bannerTitle col-md-12">
+<div class="school-hdr"><a href="http://science.rpi.edu">School of Science</a></div>
+<a href="/computer-science" class="dept-hdr">Computer Science</a></div>
+<div id="block-menu-block-2" class="block block-menu-block block-menu col-md-12 last odd" role="navigation">
+  <div class="menu-block-wrapper menu-block-2 menu-name-menu-sos---main-navigation parent-mlid-1434 menu-level-2">
+  <ul class="menu"><li class="menu__item is-leaf is-parent first leaf has-children menu-mlid-1974"><a href="/computer-science/programs" class="menu__link">Programs</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1900"><a href="/computer-science/research" class="menu__link">Research</a></li>
+<li class="menu__item is-leaf is-parent is-active-trail leaf has-children active-trail menu-mlid-1898"><a href="/computer-science/faculty" class="menu__link is-active-trail active-trail">Faculty</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1901"><a href="/computer-science/news" class="menu__link">News</a></li>
+<li class="menu__item is-leaf is-parent leaf has-children menu-mlid-1991"><a href="/computer-science/events" class="menu__link parent">Events</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1983"><a href="/computer-science/contact" class="menu__link">Contact</a></li>
+  <div id="main" class="col-md-12">
+                         <h1 class="page__title title" id="page-title">David Goldschmidt</h1>
+	    <div id="content" role="main" class="col-md-9">
+<article class="node-148377 node node-rpi-cmt-faculty-profile node-promoted view-mode-full clearfix">
+<div id="block-views-faculty-profile-block" class="block block-views container last even">
+  <div class="view view-faculty-profile view-id-faculty_profile view-display-id-block view-dom-id-ae0c60aaf0c40d8b97e575f32451eb12">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-nothing-1">        <span class="field-content"><div class="row" id="deptHead">
+            <div class="col-sm-4">
+                <div class="imagecage">
+                <img class="img-responsive" src="https://faculty.rpi.edu/sites/default/files/Goldschmidt_crop.jpg" alt="David Goldschmidt">
+<div class="col-sm-8">
+  <div class="row contact">
+             <div class="col-sm-4" id="researchBox">
+                	<div class="row"> 
+                        <h4 class="breadcrumb">Education</h4>
+                          <ul class="list-inline">
+             <div class="col-sm-8" id="contactBox">
+                 	<div class="row">	
+                        <h4 class="breadcrumb">Contact</h4>
+                        <div class="col-md-4 col-sm-5" id="deptHeadContact">
+                               <li class="list-unstyled"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;518-276-2819 </li>
+                              <li class="list-unstyled">
+<span class="glyphicon glyphicon-envelope"></span>
+                           <ul class="list-unstyled list-inline list-social-icons" id="deptHeadMedia">
+                               <li class="tooltip-social web-link">
+<i class="glyphicon glyphicon-globe"></i>
+                        <div class="col-md-8 col-sm-7" id="deptHeadAddress">
+  <div class="views-field views-field-nothing">        <span class="field-content"><section id="selectedPubs">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Selected Publications</h2>
+  <div class="views-field views-field-php">        <span class="field-content"></span>  </div>  </div>
+          <aside class="col-md-3">
+                  <section class="region region-sidebar-second column sidebar">
+    <div id="block-views-contact-information-block-5" class="block block-views first last odd">
+  <div class="view view-contact-information view-id-contact_information view-display-id-block_5 view-dom-id-75ec827f882269e30109ad993325477f">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="callout-container"><h2>Contact Information</h2>
+<div class="learnmore"><a href="/computer-science/contact">Detailed Contact Information</a></div></p>
+    <footer id="footer" class="region region-footer">
+    <div id="block-block-46" class="block block-block sciBackColor first odd">
+  <footer class="rpi-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 rpi-seal">
+          <div class="org">Rensselaer Polytechnic Institute</div>
+          <div class="addr">
+            <div class="street-address">
+          <div class="tel"><a href="tel:15182766000">(518) 276-6000</a></div>
+          <div class="contact-us">
+      <div class="col-lg-8">
+        <div class="bottom-bit">
+          <nav class="nav footer-nav">
+  <div class="footer-nav-policies">
+    <a class="" target="_blank" href="http://scer.rpi.edu/forjournalists">
+    <a class="" target="_blank" href="https://info.rpi.edu/web-privacy-statement">
+    <a class="" target="_blank" href="https://sexualviolence.rpi.edu/">
+  <a class="" target="_blank" href="http://rpi.edu/about/heoa/index.html">
+  <a class="" target="_blank" href="http://info.rpi.edu/webaccessibility">
+<div id="block-block-81" class="block block-block even">
+<div id="block-block-83" class="block block-block odd">
+    $('#content .expanding_programs_nav .menu .parent').append( '<span class="side-more-link"></span>' );
+<div id="block-block-84" class="block block-block even">
+    $('.expanding_side_nav .menu .parent').append( '<span class="side-more-link"></span>' );
+<div id="block-block-121" class="block block-block odd">
+<div id="block-block-82" class="block block-block last even">
+  <div class="region region-bottom">
+    <div id="block-block-34" class="block block-block first odd">
+<div id="block-block-35" class="block block-block last even">
+
+Your Output:
+<!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7"  lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"  lang="en" dir="ltr"><![endif]-->
+<body id="skrollr-body" class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-148377 node-type-rpi-cmt-faculty-profile section-computer-science" >
+<div id="page" class="container">
+  <header class="header" id="header" role="banner">
+      <div class="header__region region region-header">
+    <div id="block-block-40" class="block block-block sciBackImage first odd">
+  <div class="col-md-12" id="logobanner"><div id="mobileMenuContainer"><a class="mobileMenu" href="#mobileMenu">☰</a></div><div id="rensselaerLogo"><a href="https://www.rpi.edu/"><img 
+<div id="block-views-department-banner-image-block" class="block block-views even">
+  <div class="view view-department-banner-image view-id-department_banner_image view-display-id-block view-dom-id-6ae40472d585f5ef166b0d14ffc484c0">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-field-lead-photo">        <div class="field-content"><div class="bannerImage"><img src="https://science.rpi.edu/sites/default/files/speaker_final_0.jpg" width="1900" height="533" alt="" /></div></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><div class="bannerArea">
+<div class="bannerTitle col-md-12">
+<div class="school-hdr"><a href="http://science.rpi.edu">School of Science</a></div>
+<a href="/computer-science" class="dept-hdr">Computer Science</a></div>
+<div id="block-menu-block-2" class="block block-menu-block block-menu col-md-12 last odd" role="navigation">
+  <div class="menu-block-wrapper menu-block-2 menu-name-menu-sos---main-navigation parent-mlid-1434 menu-level-2">
+  <ul class="menu"><li class="menu__item is-leaf is-parent first leaf has-children menu-mlid-1974"><a href="/computer-science/programs" class="menu__link">Programs</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1900"><a href="/computer-science/research" class="menu__link">Research</a></li>
+<li class="menu__item is-leaf is-parent is-active-trail leaf has-children active-trail menu-mlid-1898"><a href="/computer-science/faculty" class="menu__link is-active-trail active-trail">Faculty</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1901"><a href="/computer-science/news" class="menu__link">News</a></li>
+<li class="menu__item is-leaf is-parent leaf has-children menu-mlid-1991"><a href="/computer-science/events" class="menu__link parent">Events</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1983"><a href="/computer-science/contact" class="menu__link">Contact</a></li>
+  <div id="main" class="col-md-12">
+                         <h1 class="page__title title" id="page-title">David Goldschmidt</h1>
+	    <div id="content" role="main" class="col-md-9">
+<article class="node-148377 node node-rpi-cmt-faculty-profile node-promoted view-mode-full clearfix">
+<div id="block-views-faculty-profile-block" class="block block-views container last even">
+  <div class="view view-faculty-profile view-id-faculty_profile view-display-id-block view-dom-id-ae0c60aaf0c40d8b97e575f32451eb12">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-nothing-1">        <span class="field-content"><div class="row" id="deptHead">
+            <div class="col-sm-4">
+                <div class="imagecage">
+                <img class="img-responsive" src="https://faculty.rpi.edu/sites/default/files/Goldschmidt_crop.jpg" alt="David Goldschmidt">
+<div class="col-sm-8">
+  <div class="row contact">
+             <div class="col-sm-4" id="researchBox">
+                	<div class="row"> 
+                        <h4 class="breadcrumb">Education</h4>
+                          <ul class="list-inline">
+             <div class="col-sm-8" id="contactBox">
+                 	<div class="row">	
+                        <h4 class="breadcrumb">Contact</h4>
+                        <div class="col-md-4 col-sm-5" id="deptHeadContact">
+                               <li class="list-unstyled"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;518-276-2819 </li>
+                              <li class="list-unstyled">
+<span class="glyphicon glyphicon-envelope"></span>
+                           <ul class="list-unstyled list-inline list-social-icons" id="deptHeadMedia">
+                               <li class="tooltip-social web-link">
+<i class="glyphicon glyphicon-globe"></i>
+                        <div class="col-md-8 col-sm-7" id="deptHeadAddress">
+  <div class="views-field views-field-nothing">        <span class="field-content"><section id="selectedPubs">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Selected Publications</h2>
+  <div class="views-field views-field-php">        <span class="field-content"></span>  </div>  </div>
+          <aside class="col-md-3">
+                  <section class="region region-sidebar-second column sidebar">
+    <div id="block-views-contact-information-block-5" class="block block-views first last odd">
+  <div class="view view-contact-information view-id-contact_information view-display-id-block_5 view-dom-id-75ec827f882269e30109ad993325477f">
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="callout-container"><h2>Contact Information</h2>
+<div class="learnmore"><a href="/computer-science/contact">Detailed Contact Information</a></div></p>
+    <footer id="footer" class="region region-footer">
+    <div id="block-block-46" class="block block-block sciBackColor first odd">
+  <footer class="rpi-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 rpi-seal">
+          <div class="org">Rensselaer Polytechnic Institute</div>
+          <div class="addr">
+            <div class="street-address">
+          <div class="tel"><a href="tel:15182766000">(518) 276-6000</a></div>
+          <div class="contact-us">
+      <div class="col-lg-8">
+        <div class="bottom-bit">
+          <nav class="nav footer-nav">
+  <div class="footer-nav-policies">
+    <a class="" target="_blank" href="http://scer.rpi.edu/forjournalists">
+    <a class="" target="_blank" href="https://info.rpi.edu/web-privacy-statement">
+    <a class="" target="_blank" href="https://sexualviolence.rpi.edu/">
+  <a class="" target="_blank" href="http://rpi.edu/about/heoa/index.html">
+  <a class="" target="_blank" href="http://info.rpi.edu/webaccessibility">
+<div id="block-block-81" class="block block-block even">
+<div id="block-block-83" class="block block-block odd">
+    $('#content .expanding_programs_nav .menu .parent').append( '<span class="side-more-link"></span>' );
+<div id="block-block-84" class="block block-block even">
+    $('.expanding_side_nav .menu .parent').append( '<span class="side-more-link"></span>' );
+<div id="block-block-121" class="block block-block odd">
+<div id="block-block-82" class="block block-block last even">
+  <div class="region region-bottom">
+    <div id="block-block-34" class="block block-block first odd">
+<div id="block-block-35" class="block block-block last even">
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex08-output03.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex09-input04 (expected output: hw1-regex09-output04.txt)
+regex: aqu\w+
+Expected Output:
+alfaqui
+alfaquin
+alfaquis
+aqua
+aquacade
+aquae
+aquanaut
+aquaria
+aquarial
+aquarian
+aquarist
+aquarium
+aquas
+aquatic
+aquatics
+aquatint
+aquatone
+aquavit
+aquavits
+aqueduct
+aqueous
+aquifer
+aquifers
+aquiline
+aquiver
+chaqueta
+claque
+claquer
+claquers
+claques
+claqueur
+faquir
+faquirs
+macaque
+macaques
+maquette
+maqui
+maquis
+opaque
+opaqued
+opaquely
+opaquer
+opaques
+opaquest
+opaquing
+paraquat
+paraquet
+plaque
+plaques
+seaquake
+vaquero
+vaqueros
+
+Your Output:
+alfaqui
+alfaquin
+alfaquis
+aqua
+aquacade
+aquae
+aquanaut
+aquaria
+aquarial
+aquarian
+aquarist
+aquarium
+aquas
+aquatic
+aquatics
+aquatint
+aquatone
+aquavit
+aquavits
+aqueduct
+aqueous
+aquifer
+aquifers
+aquiline
+aquiver
+chaqueta
+claque
+claquer
+claquers
+claques
+claqueur
+faquir
+faquirs
+macaque
+macaques
+maquette
+maqui
+maquis
+opaque
+opaqued
+opaquely
+opaquer
+opaques
+opaquest
+opaquing
+paraquat
+paraquet
+plaque
+plaques
+seaquake
+vaquero
+vaqueros
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex09-output04.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex10-input02 (expected output: hw1-regex10-output02.txt)
+regex: f...x
+Expected Output:
+The pedagogue’s mouth watered as he looked upon this sumptuous promise of luxurious winter fare. In his devouring mind’s eye, he pictured to himself every roasting-pig running about with a 
+Fain would I pause to dwell upon the world of charms that burst upon the enraptured gaze of my hero, as he entered the state parlor of Van Tassel’s mansion. Not those of the bevy of buxom lasses, 
+
+Your Output:
+The pedagogue’s mouth watered as he looked upon this sumptuous promise of luxurious winter fare. In his devouring mind’s eye, he pictured to himself every roasting-pig running about with a 
+Fain would I pause to dwell upon the world of charms that burst upon the enraptured gaze of my hero, as he entered the state parlor of Van Tassel’s mansion. Not those of the bevy of buxom lasses, 
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex10-output02.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+Running Test: regex10-input04 (expected output: hw1-regex10-output04.txt)
+regex: f...x
+Expected Output:
+
+Your Output:
+
+Running diff on Expected Output VS Your Output:
+
+Files your-output.txt and hw1-regex10-output04.txt are identical
+
+           ***************
+           * test passed *
+           ***************
+
+--------------------------------------------------------------------------------
+
+    Tests Passed: [ 15 / 15 ]
+
